@@ -22,12 +22,10 @@ export class AppComponent {
   cart: any[] = [];
   totalAmount: number = 0;
 
-  constructor() {
-    this.updateTotalAmount();
-  }
+
 
   addToCart(index: number) {
-    const product = this.products[index];
+    let product = this.products[index];
     let cartItem = this.cart.find(item => item.id === product.id);
 
     if (cartItem) {
@@ -51,8 +49,8 @@ export class AppComponent {
   }
 
   removeFromCart(index: number) {
-    const cartItem = this.cart[index];
-    const product = this.products.find(p => p.id === cartItem.id);
+    let  cartItem = this.cart[index];
+    let  product = this.products.find(p => p.id === cartItem.id);
 
     if (cartItem) {
       if (cartItem.quantity > 1) {
