@@ -5,9 +5,10 @@ import {ProductModel} from "../models/product.model";
   providedIn: 'root'
 })
 export class StoreService {
-  constructor() { }
+  constructor() {
+  }
 
-  products  = [
+  products = [
     {img: '../assets/ao.png', name: "Áo", inventoryNumber: 20, price: 14, id: 1},
     {img: '../assets/quan.png', name: "Quần", inventoryNumber: 40, price: 13, id: 2},
     {img: '../assets/giay.png', name: "Giày", inventoryNumber: 10, price: 90, id: 3},
@@ -20,12 +21,19 @@ export class StoreService {
   ];
   cart: any[] = [];
   totalAmount: number = 0;
+  newProduct: ProductModel = {
+    name: '',
+    price: 0,
+    inventoryNumber: 0,
+    img: '',
+    id: 0
+  };
   addToCart(item: any) {
     let findIndex = this.cart.findIndex((products) => products.id === item.id);
     let product = this.products.findIndex((products) => products.id === item.id);
-    if(this.products[product].inventoryNumber == 0) {
+    if (this.products[product].inventoryNumber == 0) {
       {
-        return alert(this.products[product].name+" hết hàng"  );
+        return alert(this.products[product].name + " hết hàng");
       }
     }
     if (findIndex !== -1) {
@@ -37,6 +45,7 @@ export class StoreService {
     }
     this.updateTotalAmount();
   }
+
   removeFromCart(item: any) {
     let cartItem = this.cart[item];
     let product = this.products.find(p => p.id === cartItem.id);
@@ -56,6 +65,7 @@ export class StoreService {
     }
     this.updateTotalAmount();
   }
+
   updateTotalAmount() {
     // this.totalAmount=0;
     this.totalAmount = this.cart.reduce((total, item) => total + (item.price * item.quantity), 0);
@@ -67,16 +77,13 @@ export class StoreService {
     this.cart = [];
     this.totalAmount = 0;
   }
+
   addProduct(product: ProductModel) {
-    product.id = this.products.length + 1;
     this.products.push(product);
+    product.id = this.products.length + 1;
+
   }
-  isValidProduct(product: any): boolean {
-    return product.name.trim() !== '' &&
-      product.price > 0 &&
-      product.inventoryNumber >= 0 &&
-      product.img.trim() !== ''
-  }
+
 }
 
 
