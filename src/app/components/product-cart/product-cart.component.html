@@ -1,0 +1,17 @@
+
+      <div class="product" >
+        <img src="{{ product.img }}" alt="{{ product.name }}" />
+        <div class="textCard1">Tên mặt hàng: {{ product.name }}</div>
+        <div class="textCard1">Số lượng tồn kho: {{ product.inventoryNumber }}</div>
+        <div class="textCard1">Đơn giá: {{ product.price }}.000 VND</div>
+        <div class="button-container">
+          <button (click)="storeService.addToCart({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            img: product.img,
+            quantity: 1
+          })">Thêm vào giỏ</button>
+        </div>
+      </div>
+

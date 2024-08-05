@@ -1,41 +1,31 @@
-<div class="frame">
-  <div class="section">
-    <h1 class="section-title">Product</h1>
-    <div class="farm2">
-      @for (item of products; track $index) {
-      <div class="product">
-        <img src="{{ item.img }}" alt="{{ item.name }}" />
-        <div class="textcard">Tên mặt hàng: {{ item.name }}</div>
-        <div class="textcard">Số lượng tồn kho: {{ item.inventoryNumber }}</div>
-        <div class="textcard">Đơn giá: {{ item.price }}.000 VND</div>
-        <div class="button-container">
-          <button (click)="addToCart($index)">Thêm vào giỏ</button>
-        </div>
-      </div>
+<app-navbar></app-navbar>
+<app-input-product></app-input-product>
+<div style="margin-bottom: 20px"></div>
+<div class="container">
+      @for (item of this.storeService.products; track $index) {
+        <app-product-cart   [product]="item"></app-product-cart>
       }
-    </div>
-  </div>
-
+</div>
   <div class="separator"></div>
 
   <div class="section">
     <h1 class="section-title">Your Cart</h1>
     <div class="farm3">
-      @for (item of cart; track $index) {
-      <div class="cart">
-        <img src="{{ item.img }}" alt="{{ item.name }}" />
-        <div class="textcard">Tên mặt hàng: {{ item.name }}</div>
-        <div class="textcard">Số lượng tồn kho: {{ item.quantity }}</div>
-        <div class="textcard">Đơn giá: {{ item.price }}.000 VND</div>
-        <div class="button-container">
-          <button (click)="removeFromCart($index)">Xóa</button>
+      @for (item of this.storeService.cart; track $index) {
+        <div class="cart">
+          <img src="{{ item.img }}" alt="{{ item.name }}" />
+          <div class="textcard">Tên mặt hàng: {{ item.name }}</div>
+          <div class="textcard">Số lượng mua: {{ item.quantity }}</div>
+          <div class="textcard">Đơn giá: {{ item.price }}.000 VND</div>
+          <div class="button-container">
+            <button (click)="this.storeService.removeFromCart($index)">Xóa</button>
+          </div>
         </div>
-      </div>
-      }
-    </div>
-    <div class="total-container">
-      <div class="total-text">Tổng tiền: {{ totalAmount }}.000 VND</div>
-      <button (click)="checkout()">Thanh toán</button>
+          }
     </div>
   </div>
+<div class="total-container">
+  <div class="total-text">Tổng tiền: {{this.storeService.totalAmount}} .000 VND</div>
+  <button (click)="storeService.checkout()">Thanh toán</button>
 </div>
+
