@@ -21,13 +21,7 @@ export class StoreService {
   ];
   cart: any[] = [];
   totalAmount: number = 0;
-  newProduct: ProductModel = {
-    name: '',
-    price: 0,
-    inventoryNumber: 0,
-    img: '',
-    id: 0
-  };
+
   addToCart(item: any) {
     let findIndex = this.cart.findIndex((products) => products.id === item.id);
     let product = this.products.findIndex((products) => products.id === item.id);
@@ -78,12 +72,39 @@ export class StoreService {
     this.totalAmount = 0;
   }
 
-  addProduct(product: ProductModel) {
+  addProducts(product: ProductModel) {
     this.products.push(product);
     product.id = this.products.length + 1;
 
   }
+  newProduct: ProductModel = {
+    name: '',
+    price: 0,
+    inventoryNumber: 0,
+    img: '',
+    id: 0
+  };
 
+
+
+  addProduct() {
+    if (this.newProduct.name && this.newProduct.price > 0 && this.newProduct.inventoryNumber >= 0 && this.newProduct.img) {
+      this.addProducts(this.newProduct);
+      this.resetForm();
+    } else {
+      alert('NHẬP ĐẦY ĐỦ HỘ EM CÁI!!!');
+    }
+  }
+
+  resetForm() {
+    this.newProduct = {
+      name: '',
+      price: 0,
+      inventoryNumber: 0,
+      img: '',
+      id: 0
+    };
+  }
 }
 
 
